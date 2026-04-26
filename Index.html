@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Letter For You ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 20px;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 200px;
+            background: #ff6b6b;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 5px;
+        }
+
+        .envelope:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .envelope:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-bottom: 100px solid #ff5252;
+            z-index: 3;
+        }
+
+        .envelope:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-left: 160px solid #ff4757;
+            border-right: 160px solid #ff4757;
+            border-top: 100px solid transparent;
+            z-index: 2;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 100px solid #ff6b6b;
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 4;
+        }
+
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .letter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 340px;
+            max-width: 90vw;
+            background: #fff;
+            border-radius: 10px;
+            padding: 30px 25px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            opacity: 0;
+            z-index: 20;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .envelope.open + .letter {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .letter h2 {
+            font-family: 'Noto Nastaliq Urdu', serif;
+            text-align: center;
+            color: #ff4757;
+            margin-bottom: 20px;
+            font-size: 28px;
+            direction: rtl;
+        }
+
+        .letter p {
+            font-family: 'Noto Nastaliq Urdu', serif;
+            direction: rtl;
+            text-align: right;
+            line-height: 2.2;
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .letter .signature {
+            text-align: left;
+            margin-top: 25px;
+            color: #ff6b6b;
+            font-weight: 600;
+            direction: ltr;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 30px;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            background: #ff3838;
+            transform: rotate(90deg);
+        }
+
+        .click-text {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            animation: pulse 2s infinite;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .envelope.open .click-text {
+            display: none;
+        }
+
+        @media (max-width: 400px) {
+            .envelope {
+                width: 280px;
+                height: 175px;
+            }
+            .envelope:before, .flap {
+                border-left: 140px solid transparent;
+                border-right: 140px solid transparent;
+                border-bottom: 87.5px solid #ff5252;
+                border-top: 87.5px solid #ff6b6b;
+            }
+            .envelope:after {
+                border-left: 140px solid #ff4757;
+                border-right: 140px solid #ff4757;
+                border-top: 87.5px solid transparent;
+            }
+            .letter p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="envelope-wrapper">
+        <div class="envelope" id="envelope">
+            <div class="flap"></div>
+            <div class="click-text">Click to Open 💌</div>
+        </div>
+        
+        <div class="letter" id="letter">
+            <button class="close-btn" id="closeBtn">×</button>
+            <h2>محترمہ مصباح انصاری صاحبہ</h2>
+            <p>
+                آداب،<br><br>
+                امید ہے آپ خیریت سے ہوں گی۔ بہت ادب کے ساتھ یہ چند لفظ آپ کی نذر کر رہا ہوں۔<br><br>
+                آپ کی شرافت، آپ کا وقار اور آپ کے اچھے اخلاق نے میرے دل میں آپ کے لیے بہت عزت پیدا کر دی ہے۔ آپ کی باتوں کی مٹھاس اور کردار کی سچائی نے مجھے آپ کا گرویدہ بنا دیا ہے۔<br><br>
+                میری نیت صاف ہے۔ میری دل سے خواہش ہے کہ زندگی کے ہر موڑ پر آپ کا ایک سچا اور وفادار دوست بن کر رہوں۔ آپ کی عزت کا پاسباں اور آپ کی خوشی کا ضامن بنوں۔<br><br>
+                آپ کا فیصلہ سر آنکھوں پر، کیونکہ آپ کی خوشی میرے لیے سب سے اہم ہے۔
+            </p>
+            <p class="signature">آپ کا مخلص دوست،<br>حذیفہ عمر انصاری</p>
+        </div>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('envelope');
+        const letter = document.getElementById('letter');
+        const closeBtn = document.getElementById('closeBtn');
+        const heartsContainer = document.getElementById('hearts');
+
+        // Open letter
+        envelope.addEventListener('click', () => {
+            envelope.classList.add('open');
+            createHearts();
+        });
+
+        // Close letter
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            envelope.classList.remove('open');
+        });
+
+        // Floating hearts animation
+        function createHearts() {
+            for(let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = '❤️';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                    heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                    heartsContainer.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 6000);
+                }, i * 200);
+            }
+        }
+
+        // Auto create hearts every 3 seconds when open
+        setInterval(() => {
+            if(envelope.classList.contains('open')) {
+                createHearts();
+            }
+        }, 3000);
+    </script>
+</body>
+  </html>
